@@ -2,7 +2,11 @@ import { useState, useEffect } from 'react'
 
 import Note from './components/Note'
 import Notification from './components/Notification'
+import LoginForm from './components/LoginForm'
 import Footer from './components/Footer'
+import Togglable from './components/Togglable'
+import NoteForm from './components/NoteForm'
+
 import noteService from './services/notes'
 import loginService from './services/login'
 
@@ -98,39 +102,26 @@ const App = () => {
     ? notes
     : notes.filter(note => note.important)
 
-    const loginForm = () => (
-      <form onSubmit={handleLogin}>
-        <div>
-          username
-            <input
-            type="text"
-            value={username}
-            name="Username"
-            onChange={({ target }) => setUsername(target.value)}
-          />
-        </div>
-        <div>
-          password
-            <input
-            type="password"
-            value={password}
-            name="Password"
-            onChange={({ target }) => setPassword(target.value)}
-          />
-        </div>
-        <button type="submit">login</button>
-      </form>      
-    )
+  const loginForm = () =>
+    <Togglable buttonLabel='login'>
+      <LoginForm
+        username={username}
+        password={password}
+        handleUsernameChange={({ target }) => setUsername(target.value)}
+        handlePasswordChange={({ target }) => setPassword(target.value)}
+        handleSubmit={handleLogin}
+      />
+    </Togglable>
   
-    const noteForm = () => (
-      <form onSubmit={addNote}>
-        <input
-          value={newNote}
-          onChange={handleNoteChange}
-        />
-        <button type="submit">save</button>
-      </form>  
-    )
+  const noteForm = () => (
+    <Togglable buttonLabel="new note">
+      <NoteForm
+        onSubmit={addNote}
+        value={newNote}
+        handleChange={handleNoteChange}
+      />
+    </Togglable>
+  )
 
   return (
     <div>
