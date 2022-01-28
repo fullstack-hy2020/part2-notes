@@ -7,6 +7,7 @@
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.24.0",
+    "prop-types": "^15.8.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "5.0.0",
@@ -18,10 +19,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "json-server -p3001 --watch db.json",
-    "build:ui": "rm -rf build && cd ../part2-notes/ && npm run build && cp -r build ../notes-backend",
-    "deploy": "git push heroku main",
-    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push && npm run deploy",    
-    "logs:prod": "heroku logs --tail"
+    "eslint": "eslint ."
   },
   "eslintConfig": {
     "extends": [
@@ -42,6 +40,7 @@
     ]
   },
   "devDependencies": {
+    "eslint-plugin-jest": "^26.0.0",
     "json-server": "^0.17.0"
   },
   "resolutions": {
