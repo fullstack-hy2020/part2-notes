@@ -26,10 +26,7 @@ describe('Note ', function() {
 
   describe('when logged in', function() {
     beforeEach(function() {
-      cy.contains('login').click()
-      cy.get('#username').type('mluukkai')
-      cy.get('#password').type('salainen')
-      cy.get('#login-button').click()
+      cy.login({ username: 'mluukkai', password: 'salainen' })
     })
 
     it('a new note can be created', function() {
@@ -41,9 +38,10 @@ describe('Note ', function() {
 
     describe('and a note exists', function () {
       beforeEach(function () {
-        cy.contains('new note').click()
-        cy.get('input').type('another note cypress')
-        cy.contains('save').click()
+        cy.createNote({
+          content: 'another note cypress',
+          important: false
+        })
       })
 
       it('it can be made important', function () {
@@ -55,5 +53,19 @@ describe('Note ', function() {
           .contains('make not important')
       })
     })
+  })
+
+  it('login fails with wrong password', function() {
+    cy.contains('login').click()
+    cy.get('#username').type('mluukkai')
+    cy.get('#password').type('wrong')
+    cy.get('#login-button').click()
+
+    cy.get('.error')
+    .should('contain', 'wrong credentials')
+    .and('have.css', 'color', 'rgb(255, 0, 0)')
+    .and('have.css', 'border-style', 'solid')
+
+    cy.get('html').should('not.contain', 'Matti Luukkainen logged in')
   })
 })
