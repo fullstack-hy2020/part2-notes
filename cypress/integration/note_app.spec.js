@@ -36,21 +36,18 @@ describe('Note ', function() {
       cy.contains('a note created by cypress')
     })
 
-    describe('and a note exists', function () {
+    describe('and some notes exists', function () {
       beforeEach(function () {
-        cy.createNote({
-          content: 'another note cypress',
-          important: false
-        })
+        cy.createNote({ content: 'first note', important: false })
+        cy.createNote({ content: 'second note', important: false })
+        cy.createNote({ content: 'third note', important: false })
       })
 
-      it('it can be made important', function () {
-        cy.contains('another note cypress')
-          .contains('make important')
-          .click()
+      it('one of those can be made important', function () {
+        cy.contains('second note').parent().find('button').as('theButton')
 
-        cy.contains('another note cypress')
-          .contains('make not important')
+        cy.get('@theButton').click()
+        cy.get('@theButton').should('contain', 'make not important')
       })
     })
   })
@@ -68,4 +65,5 @@ describe('Note ', function() {
 
     cy.get('html').should('not.contain', 'Matti Luukkainen logged in')
   })
+
 })
