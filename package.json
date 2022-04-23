@@ -40,7 +40,7 @@
     ]
   },
   "devDependencies": {
-    "eslint-plugin-jest": "^26.1.4",
+    "eslint-plugin-jest": "^26.1.5",
     "json-server": "^0.17.0"
   },
   "resolutions": {
