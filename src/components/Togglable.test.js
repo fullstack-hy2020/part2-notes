@@ -17,8 +17,8 @@ describe('<Togglable />', () => {
     ).container
   })
 
-  test('renders its children', () => {
-    screen.findAllByText('togglable content')
+  test('renders its children', async () => {
+    await screen.findAllByText('togglable content')
   })
 
   test('at start the children are not displayed', () => {
@@ -26,22 +26,24 @@ describe('<Togglable />', () => {
     expect(div).toHaveStyle('display: none')
   })
 
-  test('after clicking the button, children are displayed', () => {
+  test('after clicking the button, children are displayed', async () => {
+    const user = userEvent.setup()
     const button = screen.getByText('show...')
-    userEvent.click(button)
+    await user.click(button)
 
     const div = container.querySelector('.togglableContent')
     expect(div).not.toHaveStyle('display: none')
-  })
+  }, 10000)
 
-  test('toggled content can be closed', () => {
+  test('toggled content can be closed', async () => {
+    const user = userEvent.setup()
     const button = screen.getByText('show...')
-    userEvent.click(button)
+    await user.click(button)
 
     const closeButton = screen.getByText('cancel')
-    userEvent.click(closeButton)
+    await user.click(closeButton)
 
     const div = container.querySelector('.togglableContent')
     expect(div).toHaveStyle('display: none')
-  })
+  }, 10000)
 })
