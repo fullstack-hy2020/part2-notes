@@ -3,8 +3,18 @@ h1 {
   font-style: italic;
 }
 
-li {
+.note {
   color: grey;
-  padding-top: 3px;
+  padding-top: 5px;
   font-size: 15px;
+}
+
+.error {
+  color: red;
+  background: lightgrey;
+  font-size: 20px;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
 }
