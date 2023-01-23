@@ -104,7 +104,7 @@ const App = () => {
       <h1>Notes app</h1>
       <Notification message={errorMessage} />
 
-      {user === null ?
+      {!user &&
         <Togglable buttonLabel="log in">
           <LoginForm
             username={username}
@@ -113,14 +113,15 @@ const App = () => {
             handlePasswordChange={({ target }) => setPassword(target.value)}
             handleSubmit={handleLogin}
           />
-        </Togglable> :
-        <Togglable buttonLabel="new note">
-          <NoteForm
-            onSubmit={addNote}
-            value={newNote}
-            handleChange={handleNoteChange}
-          />
         </Togglable>
+      }
+      {user &&
+        <div>
+          <p>{user.name} logged in</p>
+          <Togglable buttonLabel="new note">
+            <NoteForm createNote={addNote} />
+          </Togglable>
+        </div>
       }
  
       <div>
