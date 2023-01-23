@@ -48,11 +48,11 @@ describe('Note ', function() {
 
       it('it can be made important', function () {
         cy.contains('another note cypress')
-          .contains('make important')
+          .contains('make not important')
           .click()
 
         cy.contains('another note cypress')
-          .contains('make not important')
+          .contains('make important')
       })
     })
   })
