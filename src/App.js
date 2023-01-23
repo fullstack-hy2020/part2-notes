@@ -124,7 +124,7 @@ const App = () => {
       {!user && loginForm()} 
       {user && <div>
         <p>{user.name} logged in</p>
-          noteForm()
+          {noteForm()}
         </div>
       } 
  
