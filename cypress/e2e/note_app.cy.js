@@ -1,13 +1,13 @@
 describe('Note ', function() {
   beforeEach(function() {
     cy.visit('')
-    cy.request('POST', `${Cypress.env('EXTERNAL_API')}/testing/reset`)
+    cy.request('POST', `${Cypress.env('BACKEND')}/testing/reset`)
     const user = {
       name: 'Matti Luukkainen',
       username: 'mluukkai',
       password: 'salainen'
     }
-    cy.request('POST', `${Cypress.env('EXTERNAL_API')}/users`, user)
+    cy.request('POST', `${Cypress.env('BACKEND')}/users`, user)
   })
 
   it('front page can be opened', function() {
