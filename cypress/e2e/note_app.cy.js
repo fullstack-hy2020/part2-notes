@@ -1,13 +1,13 @@
 describe('Note ', function() {
   beforeEach(function() {
     cy.visit('')
-    cy.request('POST', `${Cypress.env('EXTERNAL_API')}/testing/reset`)
+    cy.request('POST', `${Cypress.env('BACKEND')}/testing/reset`)
     const user = {
       name: 'Matti Luukkainen',
       username: 'mluukkai',
       password: 'salainen'
     }
-    cy.request('POST', `${Cypress.env('EXTERNAL_API')}/users`, user)
+    cy.request('POST', `${Cypress.env('BACKEND')}/users`, user)
   })
 
   it('front page can be opened', function() {
@@ -36,21 +36,17 @@ describe('Note ', function() {
       cy.contains('a note created by cypress')
     })
 
-    describe('and a note exists', function () {
+    describe('and several notes exist', function () {
       beforeEach(function () {
-        cy.createNote({
-          content: 'another note cypress',
-          important: true
-        })
+        cy.createNote({ content: 'first note', important: false })
+        cy.createNote({ content: 'second note', important: false })
+        cy.createNote({ content: 'third note', important: false })
       })
 
-      it('it can be made important', function () {
-        cy.contains('another note cypress')
-          .contains('make not important')
-          .click()
-
-        cy.contains('another note cypress')
-          .contains('make important')
+      it('one of those can be made important', function () {
+        cy.contains('second note').parent().find('button').as('theButton')
+        cy.get('@theButton').click()
+        cy.get('@theButton').should('contain', 'make not important')
       })
     })
   })
@@ -67,5 +63,12 @@ describe('Note ', function() {
       .and('have.css', 'border-style', 'solid')
 
     cy.get('html').should('not.contain', 'Matti Luukkainen logged in')
+  })
+
+  it('then example', function() {
+    cy.get('button').then( buttons => {
+      console.log('number of buttons', buttons.length)
+      cy.wrap(buttons[0]).click()
+    })
   })
 })

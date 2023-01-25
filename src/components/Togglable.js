@@ -10,7 +10,6 @@ const Togglable = forwardRef((props, ref) => {
   console.log(visible)
 
   const toggleVisibility = () => {
-    console.log('PERKELE')
     setVisible(!visible)
   }
 
