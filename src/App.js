@@ -5,11 +5,9 @@ const App = ({ notes }) => {
     <div>
       <h1>Notes</h1>
       <ul>
-        <ul>
-          {notes.map(note => 
-            <Note key={note.id} note={note} />
-          )}
-        </ul>
+        {notes.map(note => 
+          <Note key={note.id} note={note} />
+        )}
       </ul>
     </div>
   )
