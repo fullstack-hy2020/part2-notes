@@ -18,11 +18,10 @@ const App = () => {
   const [user, setUser] = useState(null)
 
   useEffect(() => {
-    noteService
-      .getAll()
-      .then(initialNotes => {
+    (async () => {
+        const initialNotes = await noteService.getAll()
         setNotes(initialNotes)
-      })
+    })()
   }, [])
 
   useEffect(() => {
